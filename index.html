@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Keirsey Temperament Sorter</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- External CSS -->
+<link rel="stylesheet" href="Style.css">
+
+</head>
+<body>
+
+<!-- ══ CONFIG BANNER ══ -->
+<div class="cfg-banner" id="cfg-banner">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <span>Setup required — add your <code>SUPABASE_URL</code>, <code>SUPABASE_ANON_KEY</code> and EmailJS credentials in the script.
+  <a onclick="document.getElementById('setup-modal').classList.add('open')">View setup guide →</a></span>
+  <button class="cfg-x" onclick="this.parentElement.style.display='none';document.body.classList.remove('has-banner')">×</button>
+</div>
+
+<!-- ══ SCREEN: LANDING ══ -->
+<div id="landing" class="screen active">
+  <div class="logo-mark">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a5 5 0 0 1 5 5v2a5 5 0 0 1-10 0V7a5 5 0 0 1 5-5z"/><path d="M3 20c0-4 4-7 9-7s9 3 9 7"/></svg>
+  </div>
+  <p class="eyebrow">Keirsey Temperament Sorter</p>
+  <h1>Discover Your <em>Innate</em><br>Temperament</h1>
+  <p class="land-sub">A research-backed personality assessment to help you understand how you think, communicate, and lead — with deep professional insight.</p>
+  <div class="stats-row">
+    <div><div class="stat-num">70</div><div class="stat-label">Questions</div></div>
+    <div><div class="stat-num">~12</div><div class="stat-label">Minutes</div></div>
+    <div><div class="stat-num">4</div><div class="stat-label">Temperaments</div></div>
+  </div>
+  <button class="btn-primary" id="begin-btn">
+    Begin Assessment
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </button>
+  <div class="chips">
+    <span class="chip c-art">Artisan · SP</span>
+    <span class="chip c-gua">Guardian · SJ</span>
+    <span class="chip c-ide">Idealist · NF</span>
+    <span class="chip c-rat">Rational · NT</span>
+  </div>
+</div>
+
+<!-- ══ SCREEN: USER INFO ══ -->
+<div id="userinfo" class="screen">
+  <div class="ui-card">
+    <p class="eyebrow">Before You Begin</p>
+    <h2>Tell Us About Yourself</h2>
+    <p class="form-sub">Your results will be saved to the database and emailed to you.</p>
+    <div class="frow">
+      <div class="fg" id="fg-name">
+        <label>Full Name</label>
+        <input type="text" id="inp-name" placeholder="Jane Smith"/>
+        <div class="ferr">Please enter your name</div>
+      </div>
+      <div class="fg" id="fg-age">
+        <label>Age</label>
+        <input type="number" id="inp-age" placeholder="28" min="13" max="99"/>
+        <div class="ferr">Enter a valid age (13–99)</div>
+      </div>
+    </div>
+    <div class="fg" id="fg-email">
+      <label>Email Address</label>
+      <input type="email" id="inp-email" placeholder="jane@company.com"/>
+      <div class="ferr">Please enter a valid email</div>
+    </div>
+    <div class="fg" id="fg-dept">
+      <label>Department / Role</label>
+      <select id="inp-dept">
+        <option value="">Select your department</option>
+        <option>Engineering &amp; Technology</option>
+        <option>Product &amp; Design</option>
+        <option>Sales &amp; Business Development</option>
+        <option>Marketing &amp; Communications</option>
+        <option>Finance &amp; Accounting</option>
+        <option>Human Resources</option>
+        <option>Operations &amp; Logistics</option>
+        <option>Customer Success</option>
+        <option>Leadership &amp; Executive</option>
+        <option>Legal &amp; Compliance</option>
+        <option>Education &amp; Research</option>
+        <option>Healthcare</option>
+        <option>Other</option>
+      </select>
+      <div class="ferr">Please select a department</div>
+    </div>
+    <button class="btn-primary w100" id="continue-btn">Continue to Assessment →</button>
+  </div>
+</div>
+
+<!-- ══ SCREEN: QUIZ ══ -->
+<div id="quiz" class="screen">
+  <div class="q-hdr">
+    <div class="q-logo">KTS</div>
+    <div class="q-ctr"><span id="q-num">1</span> of <span id="q-tot">70</span></div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-lbl"><span>Progress</span><span class="prog-pct" id="prog-pct">0%</span></div>
+    <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+  </div>
+  <div class="sec-tag" id="sec-tag"></div>
+  <div class="q-txt" id="q-txt">Loading…</div>
+  <div class="opts" id="opts"></div>
+  <div class="q-nav">
+    <button class="btn-ghost" id="btn-prev" disabled>← Back</button>
+    <button class="btn-primary" id="btn-next" style="display:none">Next →</button>
+  </div>
+</div>
+
+<!-- ══ SCREEN: RESULTS ══ -->
+<div id="results" class="screen">
+  <div class="score-card">
+    <div class="sc-title">Your Score Breakdown</div>
+    <div class="sc-grid" id="sc-grid"></div>
+    <div class="sc-footer">
+      <div>
+        <div class="sc-type-lbl">Your 4-Letter Type</div>
+        <div class="sc-type-val" id="sc-type">––––</div>
+      </div>
+      <div class="integrations">
+        <div class="int-row"><div class="dot" id="db-dot"></div><span id="db-txt">Not saved yet</span></div>
+        <div class="int-row"><div class="dot" id="em-dot"></div><span id="em-txt">Email not sent yet</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="res-hdr">
+    <p class="res-ey">Your Temperament Profile</p>
+    <div class="type-badge" id="res-badge"></div>
+    <h2 class="res-name" id="res-name"></h2>
+    <p class="res-mbti" id="res-mbti"></p>
+    <p class="res-tag" id="res-tag"></p>
+    <p class="res-desc" id="res-desc"></p>
+  </div>
+  <div class="dims-sec">
+    <h3 class="sec-title">Personality Dimensions</h3>
+    <div id="dims-bars"></div>
+  </div>
+  <h3 class="sec-title">Strengths &amp; Growth Areas</h3>
+  <div class="sw-grid" id="sw-grid"></div>
+  <div style="margin-top:48px">
+    <h3 class="sec-title">Professional Compatibility</h3>
+    <div class="cp-grid" id="cp-grid"></div>
+  </div>
+  <div class="act-bar">
+    <div>
+      <div class="act-lbl">Results recorded &amp; delivered</div>
+      <div class="act-sub">Saved to Supabase · Email sent to your inbox</div>
+    </div>
+    <button class="btn-act" onclick="window.print()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Print / PDF
+    </button>
+  </div>
+  <button class="btn-retake" id="retake-btn">↺ Retake Assessment</button>
+</div>
+
+<!-- ══ SETUP MODAL ══ -->
+<div class="modal-ov" id="setup-modal">
+  <div class="modal">
+    <button class="modal-x" onclick="document.getElementById('setup-modal').classList.remove('open')">×</button>
+    <h3>🛠 Setup Guide</h3>
+    <p>Configure Supabase (database) and EmailJS (email delivery). Both free. ~10 minutes total.</p>
+    <div class="step"><div class="step-title">SUPABASE — Step 1: Create project</div>
+      <p>Go to <strong>supabase.com</strong> → New Project → <strong>Settings → API</strong> → copy <strong>Project URL</strong> and <strong>anon public key</strong>.</p></div>
+    <div class="step"><div class="step-title">SUPABASE — Step 2: Create table (SQL Editor)</div>
+      <pre>create table assessments (
+  id          bigint generated always as identity primary key,
+  created_at  timestamptz default now(),
+  name        text, email text, age int, department text,
+  temperament text, mbti_code text,
+  score_ei int, score_sn int, score_tf int, score_jp int,
+  pct_ei int, pct_sn int, pct_tf int, pct_jp int
+);</pre></div>
+    <div class="step"><div class="step-title">SUPABASE — Step 3: Add credentials</div>
+      <p>Replace <code>YOUR_SUPABASE_URL</code> and <code>YOUR_SUPABASE_ANON_KEY</code> in the script below.</p></div>
+    <hr class="modal-divider">
+    <div class="step"><div class="step-title">EMAILJS — Step 1: Create account</div>
+      <p>Go to <strong>emailjs.com</strong> → Sign up → <strong>Account → API Keys</strong> → copy <strong>Public Key</strong>.</p></div>
+    <div class="step"><div class="step-title">EMAILJS — Step 2: Connect email service</div>
+      <p><strong>Email Services → Add New Service</strong> → connect Gmail or Outlook → copy <strong>Service ID</strong>.</p></div>
+    <div class="step"><div class="step-title">EMAILJS — Step 3: Create template</div>
+      <p>Set the <strong>"To Email"</strong> field to <code>{{to_email}}</code> — this is critical. Use these variables in the body:</p>
+      <pre>Hi {{user_name}},
+
+Your Temperament: {{temperament_name}} ({{mbti_code}})
+{{tagline}}
+
+SCORES
+E/I: {{score_ei}} | S/N: {{score_sn}}
+T/F: {{score_tf}} | J/P: {{score_jp}}
+
+{{description}}
+
+STRENGTHS
+{{strengths}}
+
+GROWTH AREAS
+{{weaknesses}}
+
+CAREER FIT: {{careers}}
+Department: {{department}} | Age: {{age}}</pre></div>
+    <div class="step"><div class="step-title">EMAILJS — Step 4: Add credentials</div>
+      <p>Replace <code>YOUR_EMAILJS_PUBLIC_KEY</code>, <code>YOUR_EMAILJS_SERVICE_ID</code>, <code>YOUR_EMAILJS_TEMPLATE_ID</code> in the script.</p></div>
+  </div>
+</div>
+
+<!-- External Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<!-- Your JavaScript File -->
+<script src="script.js"></script>
+</body>
+</html>
