@@ -1,11 +1,11 @@
 // ╔══════════════════════════════════════════════╗
 // ║  REPLACE THESE 5 VALUES WITH YOUR OWN KEYS  ║
 // ╚══════════════════════════════════════════════╝
-const SUPABASE_URL      = 'YOUR_SUPABASE_URL';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
-const EJS_PUBLIC_KEY    = 'YOUR_EMAILJS_PUBLIC_KEY';
-const EJS_SERVICE_ID    = 'YOUR_EMAILJS_SERVICE_ID';
-const EJS_TEMPLATE_ID   = 'YOUR_EMAILJS_TEMPLATE_ID';
+const SUPABASE_URL      = 'https://xqmdxajbsfcltqwaxhqo.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhxbWR4YWpic2ZjbHRxd2F4aHFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMzcxNDYsImV4cCI6MjA4ODgxMzE0Nn0.fZKqPiyy5WsWL9Ok2FEKW6Pv7swG8kazoeXwsmU9-Q8';
+const EJS_PUBLIC_KEY    = 'QntSgT00bmtFEmpiw';
+const EJS_SERVICE_ID    = 'yahoo_mail';
+const EJS_TEMPLATE_ID   = 'template_84uz0iy';
 // ╚══════════════════════════════════════════════╝
 
 // ── Question Bank (70 questions) ────────────────────────────────────────────
