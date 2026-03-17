@@ -177,9 +177,7 @@ function pick(i) {
   answers[cur] = i;
   document.querySelectorAll('.opt-btn').forEach((b, idx) => b.classList.toggle('sel', idx === i));
   document.getElementById('btn-next').style.display = 'inline-flex';
-  setTimeout(() => { cur < Qs.length - 1 ? (cur++, renderQ()) : finish(); }, 380);
 }
-
 function nextQ() { if (answers[cur] === null) return; cur < Qs.length-1 ? (cur++, renderQ()) : finish(); }
 function prevQ() { if (cur > 0) { cur--; renderQ(); } }
 
