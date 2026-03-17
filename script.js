@@ -7,7 +7,6 @@ const EJS_PUBLIC_KEY    = 'QntSgT00bmtFEmpiw';
 const EJS_SERVICE_ID    = 'yahoo_mail';
 const EJS_TEMPLATE_ID   = 'template_84uz0iy';
 // ╚══════════════════════════════════════════════╝
-
 // ── Question Bank (70 questions) ────────────────────────────────────────────
 const Qs = [
   {q:"At a social gathering, you tend to:",a:["Seek out and meet many people","Spend time with a few close friends"],dim:"EI",v:[1,-1],s:"Social Style"},
