@@ -7,6 +7,7 @@ const EJS_PUBLIC_KEY    = 'QntSgT00bmtFEmpiw';
 const EJS_SERVICE_ID    = 'yahoo_mail';
 const EJS_TEMPLATE_ID   = 'template_84uz0iy';
 // ╚══════════════════════════════════════════════╝
+
 // ── Question Bank (70 questions) ────────────────────────────────────────────
 const Qs = [
   {q:"At a social gathering, you tend to:",a:["Seek out and meet many people","Spend time with a few close friends"],dim:"EI",v:[1,-1],s:"Social Style"},
@@ -146,6 +147,34 @@ function submitUserInfo() {
   showScreen('quiz');
   setTimeout(renderQ, 60);
 }
+
+// 1. Logic to show/hide the "Other" input (ADD THIS NEW)
+const deptSelect = document.getElementById('inp-dept');
+const otherInput = document.getElementById('inp-dept-other');
+
+deptSelect.addEventListener('change', function() {
+  if (this.value === 'Other') {
+    otherInput.style.display = 'block';
+    deptSelect.style.flex = '1';
+    otherInput.style.flex = '1';
+  } else {
+    otherInput.style.display = 'none';
+    deptSelect.style.flex = 'none';
+    deptSelect.style.width = '100%';
+  }
+});
+
+// 2. Logic for your button (KEEP YOUR EXISTING LOGIC HERE)
+document.getElementById('continue-btn').addEventListener('click', function() {
+  const selectedDept = deptSelect.value;
+  
+  if (selectedDept === "") {
+    document.querySelector('.ferr').style.display = 'block';
+  } else {
+    // Proceed to next step
+    console.log("Proceeding with:", selectedDept);
+  }
+});
 
 // ── Quiz ─────────────────────────────────────────────────────────────────────
 function renderQ() {

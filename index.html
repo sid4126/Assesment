@@ -73,27 +73,32 @@
       <div class="ferr">Please enter a valid email</div>
     </div>
     <div class="fg" id="fg-dept">
-      <label>Department / Role</label>
-      <select id="inp-dept">
-        <option value="">Select your department</option>
-        <option>Engineering &amp; Technology</option>
-        <option>Product &amp; Design</option>
-        <option>Sales &amp; Business Development</option>
-        <option>Marketing &amp; Communications</option>
-        <option>Finance &amp; Accounting</option>
-        <option>Human Resources</option>
-        <option>Operations &amp; Logistics</option>
-        <option>Customer Success</option>
-        <option>Leadership &amp; Executive</option>
-        <option>Legal &amp; Compliance</option>
-        <option>Education &amp; Research</option>
-        <option>Healthcare</option>
-        <option>Other</option>
-      </select>
-      <div class="ferr">Please select a department</div>
-    </div>
-    <button class="btn-primary w100" id="continue-btn">Continue to Assessment →</button>
+  <label>Department / Role</label>
+  <div class="input-row">
+    <select id="inp-dept">
+      <option value="" disabled selected>Select your department</option>
+      <option>Engineering & Technology</option>
+      <option>Product & Design</option>
+      <option>Sales & Business Development</option>
+      <option>Marketing & Communications</option>
+      <option>Finance & Accounting</option>
+      <option>Human Resources</option>
+      <option>Operations & Logistics</option>
+      <option>Customer Success</option>
+      <option>Leadership & Executive</option>
+      <option>Legal & Compliance</option>
+      <option>Education & Research</option>
+      <option>Healthcare</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <input type="text" id="inp-dept-other" placeholder="Please specify..." style="display: none;" />
   </div>
+  <div class="ferr" id="dept-error">Please select a department</div>
+</div>
+
+<button class="btn-primary w100" id="continue-btn">Continue to Assessment →</button>
+</div>
 </div>
 
 <!-- ══ SCREEN: QUIZ ══ -->
